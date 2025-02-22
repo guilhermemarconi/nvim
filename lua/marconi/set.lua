@@ -3,7 +3,7 @@ vim.opt.rnu = true
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.shiftwidth = 3
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
@@ -29,3 +29,12 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
+require("autoclose").setup({
+   options = {
+      pair_spaces = true
+   },
+   keys = {
+      ["---"] = { escape = false, close = true, pair = "---\n\n---\n\n" },
+   }
+})
