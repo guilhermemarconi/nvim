@@ -9,20 +9,10 @@ return {
 
   {
     "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "eslint",
-          "tailwindcss",
-          "lua_ls",
-        },
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-        },
-      })
-    end,
+    lazy = false,
+    opts = {
+      auto_install = true,
+    },
   },
 
   {
@@ -32,24 +22,22 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
 
-      -- Add cmp_nvim_lsp capabilities to lspconfig
-      -- This should be executed before you configure any language server
-      -- local lspconfig_defaults = require("lspconfig").util.default_config
-      -- lspconfig_defaults.capabilities =
-      --   vim.tbl_deep_extend("force", lspconfig_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-      lspconfig.eslint.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.tailwindcss.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
       })
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
       })
+      lspconfig.astro.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.html.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.tailwindcss.setup({
+        capabilities = capabilities,
+      })
 
-      -- This is where you enable features that only work
-      -- if there is a language server active in the file
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP Actions",
         callback = function(event)

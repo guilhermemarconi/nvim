@@ -28,4 +28,8 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+vim.opt.foldlevel = 20
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
 vim.cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
