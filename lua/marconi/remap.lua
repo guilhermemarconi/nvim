@@ -20,7 +20,6 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
-vim.keymap.set("n", "-", "<cmd>Oil<CR>")
 vim.keymap.set("n", "L", "<cmd>Lazy<CR>")
 
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
