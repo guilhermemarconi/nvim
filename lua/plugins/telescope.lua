@@ -8,6 +8,7 @@ return {
 
     config = function()
       local telescope = require("telescope")
+      local builtin = require("telescope.builtin")
       local additional_rg_args = { "rg", "--files", "--hidden", "--glob", "!**/node_modules/*" }
 
       telescope.setup({
@@ -15,10 +16,10 @@ return {
           find_files = {
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
             live_grep = {
-              additional_args = vim.tbl_flatten {
+              additional_args = vim.tbl_flatten({
                 additional_rg_args,
-                { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" }
-              },
+                { "--color=never", "--no-heading", "--with-filename", "--line-number", "--column", "--smart-case" },
+              }),
             },
             grep_string = { additional_args = additional_rg_args },
           },
@@ -29,8 +30,6 @@ return {
       })
 
       telescope.load_extension("fzf")
-
-      local builtin = require("telescope.builtin")
 
       vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope find files" })
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope find help" })
