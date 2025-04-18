@@ -53,6 +53,9 @@ return {
         }),
         preselect = cmp.PreselectMode.Item,
         completion = { completeopt = "menu,menuone,noinsert" },
+        formatting = {
+          format = require("nvim-highlight-colors").format,
+        },
       })
     end,
   },

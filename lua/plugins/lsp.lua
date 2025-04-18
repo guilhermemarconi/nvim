@@ -37,30 +37,76 @@ return {
       lspconfig.tailwindcss.setup({
         capabilities = capabilities,
       })
+      lspconfig.emmet_language_server.setup({
+        capabilities = capabilities,
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP Actions",
         callback = function(event)
           local opts = { buffer = event.buf }
 
-          vim.keymap.set("n", "gh", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-          vim.keymap.set("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", opts)
-          vim.keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
-          vim.keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-          vim.keymap.set("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", opts)
-          vim.keymap.set("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
-          vim.keymap.set("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
-          vim.keymap.set("n", "<leader>r", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-          vim.keymap.set({ "n", "x" }, "<leader>=", "<cmd>lua vim.lsp.buf.format()<cr>", opts)
-          vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+          vim.keymap.set("n", "gh", vim.lsp.buf.hover, vim.tbl_flatten(opts, { desc = "LSP: [H]over" }))
+
+          vim.keymap.set(
+            "n",
+            "gd",
+            vim.lsp.buf.definition,
+            vim.tbl_flatten(opts, { dsc = "LSP: [G]o to [D]efinition" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "gD",
+            vim.lsp.buf.declaration,
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [D]eclaration" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "gi",
+            vim.lsp.buf.implementation,
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [I]mplementation" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "gt",
+            vim.lsp.buf.type_definition,
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [T]ype definition" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "gr",
+            vim.lsp.buf.references,
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [R]eferences" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "gs",
+            vim.lsp.buf.signature_help,
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [S]ignature" })
+          )
+
+          vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, vim.tbl_flatten(opts, { desc = "LSP: [R]ename" }))
+
+          vim.keymap.set(
+            { "n", "x" },
+            "<leader>f",
+            vim.lsp.buf.format,
+            vim.tbl_flatten(opts, { desc = "LSP: [F]ormat" })
+          )
+
+          vim.keymap.set(
+            "n",
+            "<leader>ca",
+            vim.lsp.buf.code_action,
+            vim.tbl_flatten(opts, { desc = "LSP: [C]ode [A]ction" })
+          )
         end,
       })
     end,
   },
-
-  config = function()
-    -- Reserve a space in the gutter
-    -- This will avoid an annoying layout shift in the screen
-    vim.opt.signcolumn = "yes"
-  end,
 }

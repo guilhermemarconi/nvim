@@ -1,7 +1,8 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>w", vim.cmd.w)
-vim.keymap.set("n", "<leader>q", vim.cmd.q)
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = "[W]rite file (save)" })
+vim.keymap.set("n", "<leader>q", vim.cmd.q, { desc = "[Q]uit neovim" })
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "[P]roject [V]iew" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -22,8 +23,6 @@ vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "L", "<cmd>Lazy<CR>")
 
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
@@ -31,7 +30,7 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-vim.keymap.set("n", "<leader><leader>", vim.cmd.so)
+vim.keymap.set("n", "<leader><leader>", vim.cmd.so, { desc = "Source file" })
 
 -- vim.keymap.set('n', '<C-k>', ':wincmd k<CR>')
 -- vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')

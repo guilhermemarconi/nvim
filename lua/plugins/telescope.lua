@@ -31,16 +31,20 @@ return {
 
       telescope.load_extension("fzf")
 
-      vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope find files" })
-      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope find help" })
-      vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "Telescope live grep" })
-      vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Telescope find git files" })
+      vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope: [P]roject [F]ind" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope: [F]ind [H]elp" })
+      vim.keymap.set("n", "<leader>ps", builtin.live_grep, { desc = "Telescope: [P]roject [S]earch" })
+      vim.keymap.set("n", "<leader>flr", builtin.lsp_references, { desc = "Telescope: [F]ind [L]SP [R]eferences" })
+      vim.keymap.set("n", "<leader>fds", builtin.lsp_document_symbols, { desc = "Telescope: [F]ind [D]ocument [S]ymbols" })
+      vim.keymap.set("n", "<leader>fws", builtin.lsp_workspace_symbols, { desc = "Telescope: [F]ind [W]orkspace [S]ymbols" })
+      vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Telescope: Find [P]roject git files" })
+      vim.keymap.set("n", "<C-f>", builtin.current_buffer_fuzzy_find, { desc = "Telescope: [F]ind in file" })
 
       vim.keymap.set("n", "<leader>nc", function()
         builtin.find_files({
           cwd = vim.fn.stdpath("config"),
         })
-      end)
+      end, { desc = "Telescope: [N]eovim [C]onfigs" })
     end,
   },
 

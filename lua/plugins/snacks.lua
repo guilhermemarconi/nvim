@@ -17,7 +17,7 @@ return {
     indent = { enabled = true },
     input = { enabled = true },
     -- picker = { enabled = true },
-    notifier = { enabled = true },
+    notifier = { enabled = true, timeout = 0 },
     quickfile = { enabled = true },
     scope = { enabled = true },
     scroll = { enabled = true },
@@ -26,6 +26,7 @@ return {
     words = { enabled = true },
   },
   keys = {
+    ---@diagnostic disable-next-line: undefined-global
     { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
   },
 }
