@@ -17,29 +17,29 @@ return {
 
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+          library = {
+            -- see the configuration section for more details
+            -- load luvit types when the `vim.uv` word is found
+            path = "${3rd}/luv/library",
+            words = { "vim%.uv" },
+          },
+        },
+      },
+    },
     lazy = false,
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
+      local servers = require("mason-lspconfig").get_installed_servers()
 
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.astro.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.tailwindcss.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.emmet_language_server.setup({
-        capabilities = capabilities,
-      })
+      for i, server in pairs(servers) do
+        lspconfig[server].setup({ capabilities = capabilities })
+      end
 
       vim.api.nvim_create_autocmd("LspAttach", {
         desc = "LSP Actions",
@@ -52,7 +52,7 @@ return {
             "n",
             "gd",
             vim.lsp.buf.definition,
-            vim.tbl_flatten(opts, { dsc = "LSP: [G]o to [D]efinition" })
+            vim.tbl_flatten(opts, { desc = "LSP: [G]o to [D]efinition" })
           )
 
           vim.keymap.set(
@@ -90,7 +90,9 @@ return {
             vim.tbl_flatten(opts, { desc = "LSP: [G]o to [S]ignature" })
           )
 
-          vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, vim.tbl_flatten(opts, { desc = "LSP: [R]ename" }))
+          -- use `grn` instead
+          -- vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, vim.tbl_flatten(opts, { desc = "LSP: [R]ename" }))
+          vim.keymap.set("n", "grn", vim.lsp.buf.rename, vim.tbl_flatten(opts, { remap = true, desc = "LSP: rename" }))
 
           vim.keymap.set(
             { "n", "x" },
