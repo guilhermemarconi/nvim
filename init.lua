@@ -91,7 +91,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -222,6 +222,10 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Custom: Center buffer after moving t
 vim.keymap.set('n', '<leader>r', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = 'Custom: [R]eplace' })
 
 vim.keymap.set('n', '<leader>l', '<cmd>Lazy<CR>', { desc = '[L]azy: Open' })
+
+vim.keymap.set('n', '<C-t>', '<cmd>:term<CR>', { desc = 'Open [T]erminal' })
+
+vim.keymap.set('n', 'gh', vim.lsp.buf.hover, { desc = 'LSP: [H]over' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -593,11 +597,11 @@ require('lazy').setup({
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
           local function client_supports_method(client, method, bufnr)
-            if vim.fn.has 'nvim-0.11' == 1 then
-              return client:supports_method(method, bufnr)
-            else
-              return client.supports_method(method, { bufnr = bufnr })
-            end
+            -- if vim.fn.has 'nvim-0.11' == 1 then
+            return client:supports_method(method, bufnr)
+            -- else
+            --   return client.supports_method(method, { bufnr = bufnr })
+            -- end
           end
 
           -- The following two autocommands are used to highlight references of the
@@ -814,12 +818,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
         opts = {},
       },
@@ -915,7 +919,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = true } },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -954,9 +958,6 @@ require('lazy').setup({
       --
       -- - gS - [S]plit/join
       require('mini.splitjoin').setup()
-
-      -- Animate motions and other stuff
-      require('mini.animate').setup()
 
       -- Provide UI icons
       require('mini.icons').setup()
